@@ -38,4 +38,17 @@ class Zoo
   def details
     {'total_weight' => @total_weight, 'street_address' => @street}
   end
+
+  def animals_sorted_by_weight
+    inventory.sort_by{ |animal| -animal.weight.to_i }
+  end
+
+  def animal_hash
+    {
+      'C' => inventory.find_all{ |animal| animal.kind[0,1] == 'C'},
+      'D' => inventory.find_all{ |animal| animal.kind[0,1] == 'D'},
+      'R' => inventory.find_all{ |animal| animal.kind[0,1] == 'R'},
+      'S' => inventory.find_all{ |animal| animal.kind[0,1] == 'S'}
+    }
+  end
 end

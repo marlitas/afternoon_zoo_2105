@@ -76,8 +76,40 @@ RSpec.describe do
 
     it 'has details' do
       @zoo.total_weight_of_animals
-      
+
       expect(@zoo.details).to eq({'total_weight' => 265, 'street_address' => '2300 Southern Blvd'})
+    end
+  end
+
+  context 'iteration 4' do
+    before(:each) do
+      @zoo = Zoo.new("Bronx Zoo", "2300 Southern Blvd", "Bronx", "NY", "10460")
+
+      @animal_1 = Animal.new("Sea Otter", 10, 25)
+      @animal_2 = Animal.new("Red Panda", 5, 70)
+      @animal_3 = Animal.new("Capybara", 100, 150)
+      @animal_4 = Animal.new("Dolphin", 150, 200)
+
+      @zoo.add_animal(@animal_1)
+      @zoo.add_animal(@animal_2)
+      @zoo.add_animal(@animal_3)
+      @zoo.add_animal(@animal_4)
+    end
+
+    it 'can sort by weight' do
+      expect(@zoo.animals_sorted_by_weight).to eq([@animal_4, @animal_3, @animal_1, @animal_2])
+    end
+
+    it 'sorts animals into hash by alphabet' do
+      animal_5 = Animal.new("Dog", 65, 200)
+      @zoo.add_animal(animal_5)
+
+      expect(@zoo.animal_hash).to eq({
+        'C' => [@animal_3],
+        'D' => [@animal_4, animal_5],
+        'R' => [@animal_2],
+        'S' => [@animal_1]
+        })
     end
   end
 end
